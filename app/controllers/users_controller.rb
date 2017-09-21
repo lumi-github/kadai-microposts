@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.order('created_at DESC').page(params[:page])
     count(@user)
+    
+    @favorite_ids = current_user.bookmark_micropost_ids
   end
 
   def new
@@ -36,6 +38,10 @@ class UsersController < ApplicationController
   def followers
     @user = User.find(params[:id])
     @followers = @user.followers.page(params[:page])
+  end
+
+  def favoriteposts
+    @favorite_posts = current_user.bookmark_microposts
   end
   
   private

@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'relationships/create'
-
-  get 'relationships/destroy'
-
   root to: 'toppages#index'
 
   get 'login', to: 'sessions#new'
@@ -21,5 +17,6 @@ Rails.application.routes.draw do
   
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :favorites, only: [:index, :create, :destroy]
   
 end

@@ -15,6 +15,14 @@
           <p><%= micropost.content %></p>
         </div>
         <div>
+          <% if !(favorite_ids.include?(micropost.id)) %>
+            <%= form_for(current_user.favorites.build) do |f| %>
+              <%= hidden_field_tag :micropost_id, micropost.id %>
+              <%= f.submit "Favorite", class: 'btn btn-primary btn-xs' %>
+            <% end %>
+          <% else %>
+            <%= link_to "UnFavorite", favorite_path(micropost.id), method: :delete, class: 'btn btn-danger btn-xs' %>
+          <% end %>          
           <% if current_user == micropost.user %>
             <%= link_to "Delete", micropost, method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger btn-xs' %>
           <% end %>
